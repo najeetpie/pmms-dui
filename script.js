@@ -12,7 +12,17 @@ function sendMessage(name, params) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(params)
-    }) || null;
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json(); // Assuming the response is JSON
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+        return null; // Handle the error gracefully, you can return null or handle it differently based on your requirements
+    });
 }
 
 function applyPhonographFilter(player) {
