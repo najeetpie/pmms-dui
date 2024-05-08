@@ -6,13 +6,13 @@ var audioVisualizations = {};
 var currentServerEndpoint = '127.0.0.1:30120';
 
 function sendMessage(name, params) {
-	return fetch(`https://${resourceName}/${name}`, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify(params)
-	});
+    return fetch(`https://${resourceName}/${name}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(params)
+    }) || null;
 }
 
 function applyPhonographFilter(player) {
@@ -301,10 +301,6 @@ function initPlayer(id, handle, options) {
 					media.pmms.filterAdded = true;
 				}
 
-				if (options.visualization && !media.pmms.visualizationAdded) {
-					createAudioVisualization(media, options.visualization);
-					media.pmms.visualizationAdded = true;
-				}
 			});
 
 			media.play();
